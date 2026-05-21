@@ -6,11 +6,10 @@ bot = telebot.TeleBot("8964935625:AAHU8CHepEwH81iTZsL1qwGjqY8mNvfkuDE")
 
 @bot.message_handler(func=lambda m: True, content_types=['text'])
 def handle(message):
-    if message.business_connection_id:
-        response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=[{"role": "user", "content": message.text}]
-        )
-        bot.reply_to(message, response.choices[0].message.content)
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[{"role": "user", "content": message.text}]
+    )
+    bot.reply_to(message, response.choices[0].message.content)
 
-bot.polling(allowed_updates=["message", 
+bot.polling(allowed_updates=["message", "business_message"])
